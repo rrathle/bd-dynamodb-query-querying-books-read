@@ -1,4 +1,5 @@
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 
 import java.util.List;
 
@@ -21,7 +22,12 @@ public class BookDAO {
      */
     public List<Book> getBooksReadByEmployee(String employeeId) { //(Book book) {
         //TODO: implement
-        return null;
+        Book book = new Book();
+        book.setId(employeeId);
+
+        DynamoDBQueryExpression<Book> queryExpression = new DynamoDBQueryExpression<Book>()
+                .withHashKeyValues(book);
+       return mapper.query(Book.class, queryExpression);
     }
 
 }
